@@ -6,6 +6,7 @@ type Props = {
   optionsData: Array<string>
   value: string
   onChange: React.Dispatch<React.SetStateAction<string>>
+  label: string
 }
 
 export default function SearchBar(props: Props) {
@@ -15,12 +16,13 @@ export default function SearchBar(props: Props) {
     optionsData,
     value,
     onChange,
+    label,
   } = props
 
   return (
     <Autocomplete
       id="asynchronous-demo"
-      sx={{ width: 300 }}
+      sx={{ width: 300, display: 'flex', alignItems: 'center' }}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
@@ -31,7 +33,7 @@ export default function SearchBar(props: Props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="הזן כתובת מלאה (רחוב, מספר בית)"
+          label={label}
           value={value}
           onChange={({ target }) => onChange(target.value)}
         />
@@ -39,33 +41,3 @@ export default function SearchBar(props: Props) {
     />
   );
 }
-
-/* import { makeStyles } from '@mui/styles'
-import React from 'react'
-
-const useStyles = makeStyles(() => ({
-  root: {
-
-  }
-  type Props {
-    
-  }
-}), { name: 'SearchBar'props })
-
-type Props {
-  
-}
-const SearchBar props= () => {
-  const classes = useStyles()
-
-  return (
-    <div>
-
-    </div>
-  )
-}
-
-type Props {
-  
-}
-export default SearchBar props*/

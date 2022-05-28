@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Property, Transactions } from '../../@types'
 import { transactions as transactionsData } from '../../data'
 
@@ -16,24 +16,35 @@ const RealEstateLogic = () => {
       && property.num_rooms >= minRoomNumberFilter && property.num_rooms <= maxRoomNumberFilter
     ))
 
-    filteredTransactions.sort((propertyA, propertyB) => (Number(propertyA.price) < Number(propertyB.price) && sortPriceAsc ? -1 : 1))
+    filteredTransactions.sort((propertyA, propertyB) => sortPriceAsc ? propertyA.price - propertyB.price : propertyB.price - propertyA.price)
 
     setFilteredTransactions(filteredTransactions)
   }, [addressFilter, maxRoomNumberFilter, minRoomNumberFilter, sortPriceAsc, transactions.properties])
 
   function getTransactions(): Transactions {
-    return transactionsData
+
+    const properties = transactionsData.properties.map((property, index) => (
+      {
+        ...property,
+        image: require(`../../assets/Images/prop${(index % 5) + 1}.jpg`),
+        address: typeof property.address !== 'string' ? ' כתובת לא ידועה' : property.address,
+        price: Number(property.price.toString().replaceAll(',', ''))
+      }))
+
+    return { ...transactionsData, properties }
   }
 
-  const addresses = transactions?.properties.reduce((addresses: Array<string>, property) => {
-    if (typeof property.address === 'string') {
-      addresses.push(property.address)
-    }
+  const addresses = useMemo(() => Object.keys(
+    transactions?.properties.reduce((addresses: Record<string, string>, property) => {
+      if (typeof property.address === 'string') {
+        addresses[property.address] = property.address
+      }
 
-    return addresses
-  }, [])
+      return addresses
+    }, {})
+  ), [transactions?.properties])
 
-  const toggleSortByPrice = () => setSortPriceAsc((prev) => !prev)
+  const toggleSortByPrice = useCallback(() => setSortPriceAsc((prev) => !prev),[setSortPriceAsc])
 
   return {
     transactions,
@@ -41,8 +52,10 @@ const RealEstateLogic = () => {
     addressFilter,
     setAddressFilter,
     filteredTransactions,
-    minRoomNumberFilter, setMinRoomNumberFilter,
-    maxRoomNumberFilter, setMaxRoomNumberFilter,
+    minRoomNumberFilter,
+    setMinRoomNumberFilter,
+    maxRoomNumberFilter,
+    setMaxRoomNumberFilter,
     sortPriceAsc,
     toggleSortByPrice,
   }

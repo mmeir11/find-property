@@ -1,6 +1,4 @@
-import { Transactions } from "../@types"
-
-const transactions: Transactions = {
+const transactions = {
   properties: [
     {
       address: "\u05ea\u05de\u05d9\u05e8 \u05e9\u05de\u05d5\u05d0\u05dc 53, \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd",
