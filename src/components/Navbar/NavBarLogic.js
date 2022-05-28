@@ -25,6 +25,7 @@ const NavBarLogic = () => {
       index={index}
       onClick={() => navigate(tab.path)}
       key={tab.label}
+      sx={{ color: 'white' }}
     />
   ))
 

@@ -9,7 +9,7 @@ const Navbar = () => {
   } = NavBarLogic()
 
   return (
-    <AppBar position="static" color="transparent" style={{ top: 0 }}>
+    <AppBar position="static" color="transparent" style={{ top: 0, backgroundColor: 'black' }}>
       <Tabs
         value={value}
         onChange={handleChangeTab}

@@ -1,8 +1,9 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 /* eslint-disable react/style-prop-object */
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { TextField } from '@mui/material';
 import MapLogic from './MapLogic';
-import ReactMapboxGl, { } from 'react-mapbox-gl';
+import ReactMapboxGl from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React from 'react';
 
