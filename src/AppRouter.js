@@ -13,7 +13,6 @@ const AppRouter = () => {
       <Routes>
         <Route path="/real-estate" element={<RealEstate />} />
         <Route path="/map" element={<Map />} />
-        <Route path="*" element={<Navigate to="/real-estate" replace />} />
       </Routes>
     </BrowserRouter >
   );
